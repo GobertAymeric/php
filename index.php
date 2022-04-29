@@ -52,9 +52,14 @@
                     } 
 
                     elseif(isset($_GET["debugging"])) {
-                        echo '<h2>Débogage</h2>';
+                        echo '<p class="h2 text center">Débogage</p>
+                        <p class="h3 text-start mt-4 fs-6">
+                        ===> Lecture du tableau à l\'aide de la fonction print_r()
+                        </p>
+                        
+                        ';
                         print '<pre>';
-                        print_r ($table);
+                        print_r($table);
                         print '</pre>';
 
                     } 

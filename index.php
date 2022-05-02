@@ -31,7 +31,7 @@
                         include './includes/form.inc.html'; 
                     
                     } elseif(isset($_POST['enregistrer'])) {
-                        $prenom = $_POST['first_name'];
+                        $prenom = htmlspecialchars($_POST['first_name']);
                         $nom = $_POST['last_name'];
                         $age = $_POST['age'];
                         $taille = $_POST['size']; 

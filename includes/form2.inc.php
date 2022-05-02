@@ -1,8 +1,9 @@
-<h2 class="text-center">Ajouter des données</h2>
+<h2 class="text-center">Ajouter plus de données</h2>
+<form action="index.php" method="POST" enctype="multipart/form-data">
 
 <div class="container" action="index.php" method="POST">
     <div class="row">
-            <div class="coordonnees card col-md-7 mx-auto my-1">
+            <div class="card col-md-7 mx-auto my-1">
 
                 <div class="form-floating mb-3 mt-4">
                     <input type="text" class="form-control" id="prenom" name="first_name" placeholder="Prénom" required>
@@ -50,67 +51,67 @@
 
             </div>
 
-            <div class="connaissances card col-md-4 mx-auto my-1">
+            <div class="card col-md-4 mx-auto my-1">
                 <h6>Connaissances</h6>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="html">
+                    <input class="form-check-input" type="checkbox" value="HTML5" id="html" name="html">
                     <label class="form-check-label" for="flexCheckDefault">
                         HTML </label>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="css">
+                    <input class="form-check-input" type="checkbox" value="CSS3" id="css" name="css">
                     <label class="form-check-label" for="flexCheckChecked">
                         CSS </label>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="javascript">
+                    <input class="form-check-input" type="checkbox" value="JavaScript" id="javascript" name="js">
                     <label class="form-check-label" for="flexCheckChecked">
                         JavaScript </label>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="php">
+                    <input class="form-check-input" type="checkbox" value="PHP" id="php" name="php">
                     <label class="form-check-label" for="flexCheckChecked">
                         PHP </label>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="mysql">
+                    <input class="form-check-input" type="checkbox" value="MySQL" id="mysql" name="mysql">
                     <label class="form-check-label" for="flexCheckChecked">
                         MySQL </label>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="bootstrap">
+                    <input class="form-check-input" type="checkbox" value="Bootstrap" id="bootstrap" name="bootstrap">
                     <label class="form-check-label" for="flexCheckChecked">
                         Bootstrap </label>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="symfony">
+                    <input class="form-check-input" type="checkbox" value="Symfony" id="symfony" name="symfony">
                     <label class="form-check-label" for="flexCheckChecked">
                         Symfony </label>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="reac">
+                    <input class="form-check-input" type="checkbox" value="React" id="reac" name="genre" name="react">
                     <label class="form-check-label" for="flexCheckChecked">
                         React </label>
                 </div>
 
                 <label for="ColorInput" class="form-label mt-3">Couleur préférée</label>
-                <input type="color" id="Color">
+                <input type="color" id="color" name="color">
 
                 <label for="date" class="form-label mt-3">Date de naissance</label>
-                <input type="text" id="date" placeholder="jj/mm/aaaa">
+                <input type="date" id="date" placeholder="jj/mm/aaaa" name="date">
             </div>
 
-            <div class="form-group ajout_photo card col-md-11 mx-auto my-1">
+            <div class="card col-md-11 mx-auto my-1">
                 <h6>Joindre une image (jpg ou png)</h6>
-                <input class="form-control" type="file" id="formFile">
+                <input accept="image/png, image/jpeg" type="file" id="img" name="img">
             </div> 
 
             <div class="d-flex flex-row-reverse bd-highlight mt-4">

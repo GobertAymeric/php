@@ -28,14 +28,18 @@
                 <section class="col-md-9 mt-3">
 
                     <?php if(isset($_GET["add"])){
-                        include './includes/form.inc.html'; 
+                        include './includes/form.inc.html';
+                    
+                    }elseif(isset($_GET["addmore"])){
+                            include './includes/form2.inc.php';
+
                     
                     } elseif(isset($_POST['enregistrer'])) {
                         $prenom = htmlspecialchars($_POST['first_name']);
-                        $nom = $_POST['last_name'];
-                        $age = $_POST['age'];
-                        $taille = $_POST['size']; 
-                        $sex = $_POST['genre'];
+                        $nom = htmlspecialchars($_POST['last_name']);
+                        $age = htmlspecialchars($_POST['age']);
+                        $taille = htmlspecialchars($_POST['size']); 
+                        $sex = htmlspecialchars($_POST['genre']);
                         $table = array ( 
                             "first_name" => $prenom,
                             "last_name" => $nom,
@@ -120,15 +124,21 @@
                                 }
 
                             }else {
-                                echo '<a role="button" class=" btn btn-primary" href="index.php?add">Ajouter des données</a>'; 
+                                echo '<a role="button" class=" btn btn-primary me-2" href="index.php?add">Ajouter des données</a>';
+                                echo '<a role="button" class=" btn btn-secondary" href="index.php?addmore">Ajouter plus de données</a>'; 
+
                             } 
+
+
                              
                         } else {
-                            echo '<a role="button" class=" btn btn-primary" href="index.php?add">Ajouter des données</a>'; 
+                            echo '<a role="button" class=" btn btn-primary me-2" href="index.php?add">Ajouter des données</a>';  
+                            echo '<a role="button" class=" btn btn-secondary" href="index.php?addmore">Ajouter plus de données</a>';
+
                         }     
                         
                     }    
-                    ?>           
+                    ?>       
 
                 </section>
             </div>

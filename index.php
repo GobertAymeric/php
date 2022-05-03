@@ -80,7 +80,7 @@
                                         "symfony" => $symfony,
                                         "react" => $react,
                                         "color" => $color,
-                                        "dob" => $dob,
+                                        "date" => $date,
                                         "img" => array(
                                             "name" => $file_name,
                                             "type" => $file_type,
@@ -93,16 +93,10 @@
                                     
                                     $_SESSION["table"] = $table; 
                                     echo '<p class="alert-success text-center py-3"> Données sauvegardées</p>';
-
-                                    if(empty($errors)==true){
-                                        move_uploaded_file($file_tmp,"./uploaded/".$file_name);
-                                        echo '<p class="alert-danger text-center py-3"> error: 1</p>';
-                                    }else{
-                                        print_r($errors);
-                                    }
+                                    move_uploaded_file($file_tmp,"./uploaded/".$file_name);
                                     
-                                    } else {
-                                        if (isset($table)) {
+                                }else {
+                                    if (isset($table)) {
 
                                         if(isset($_GET["debugging"])) {
                                             echo '<h2 class="text-center">Débogage</h2>';

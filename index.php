@@ -65,7 +65,7 @@
                                     $file_size = $_FILES['img']['size'];
                                     $file_ext=strtolower(end(explode('.',$_FILES['img']['name'])));
                                     $extensions= array("jpg","png");
-                                    $table = array(          
+                                    $table_all = array(          
                                         "first_name" => $prenom,
                                         "last_name"  =>  $nom,
                                         "age" => $age,
@@ -90,12 +90,41 @@
                                         )
                                         
                                     );
-                                    
-                                    $_SESSION["table"] = $table; 
-                                    echo '<p class="alert-success text-center py-3"> Données sauvegardées</p>';
-                                    move_uploaded_file($file_tmp,"./uploaded/".$file_name);
-                                    
-                                }else {
+
+                                    $errors= array();
+                        
+                                    if(isset($img)){
+                                        if($file_size > 2097152) {
+                                            $errors = "<p class='alert-danger'>La taille de l'image doit être inférieur à 2Mo</p>";
+                                    }
+
+                                        if(in_array($file_ext,$extensions)=== false){
+                                            $errors = "<p class='alert-danger'>Extension $file_type non prise en charge</p>";
+                                        }
+
+                                        if(empty($file_tmp)) {
+                                            $errors= "<p class='alert-danger'>Aucun fichier n'a été téléchargé</p>";
+                                        }
+
+                                        if(empty($errors)){
+                                        move_uploaded_file($file_tmp,"./uploaded/".$file_name);
+                                        $table = array_filter($table_all);
+                                        $_SESSION['table'] = $table;
+                                        echo '<p class="alert-success text-center py-3"> Données sauvegardées</p>';
+                                        }
+
+                                        else{
+                                            print_r($errors);
+
+                                        } 
+
+                                    } else {
+                                        $table = array_filter($table_all);
+                                        $_SESSION['table'] = $table;
+                                        echo '<p class="alert-success text-center py-3"> Données sauvegardées</p>';
+                                    }
+                                }     
+                                 else {
                                     if (isset($table)) {
 
                                         if(isset($_GET["debugging"])) {
@@ -141,9 +170,17 @@
                                             echo "<h3 class='fs-5'>===> Lecture du tableau à l'aide d'une boucle foreach</h3><br>";
                                             $table = $_SESSION['table'];
                                             $i = 0;
+
                                             foreach ($table as $x => $value) {
-                                                echo '<div>à la ligne n°' . $i . ' correspond la clé "' . $x . '" et contient "' . $value . '"</div>';
-                                                $i++;
+                                                if ($x == 'img') {
+                                                    unset($value);
+                                                    echo '<div>à la ligne n°' . $i . ' correspond la clé "' . $x . '" et contient</div>';
+                                                    echo "<img class='w-100' src='./uploaded/".$table['img']['name']."'>"; 
+
+                                                } else {
+                                                    echo '<div>à la ligne n°' . $i . ' correspond la clé "' . $x . '" et contient "' . $value . '"</div>';
+                                                    $i++;
+                                                }    
                                             }
                                             
                                         } elseif (isset($_GET['function'])){     
@@ -153,13 +190,20 @@
                                             function readTable(){
                                                 $table = $_SESSION['table'];
                                                 $i = 0;
+
                                                 foreach ($table as $x => $value) {
+                                                    if ($x == 'img') {
+                                                    unset($value);
+                                                    echo '<div>à la ligne n°' . $i . ' correspond la clé "' . $x . '" et contient</div>';
+                                                    echo "<img class='w-100' src='./uploaded/".$table['img']['name']."'>"; 
+
+                                                } else {
                                                     echo '<div>à la ligne n°' . $i . ' correspond la clé "' . $x . '" et contient "' . $value . '"</div>';
                                                     $i++;
-                                                }
+                                                }    
+                                            }
                                             }  
-                                            readTable();   
-                                            echo "<img src='./uploaded/$file_name'>";
+                                            readTable();
                                         
                                         } elseif (isset($_GET['del'])) {
                                             unset ($_SESSION['table']);

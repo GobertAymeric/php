@@ -94,23 +94,23 @@
                                     $errors= array();
                         
                                     if(isset($img)){
-                                        if($file_size > 2097152) {
-                                            $errors = "<p class='alert-danger'>La taille de l'image doit être inférieur à 2Mo</p>";
+                                        if($file_size > 2000000) {
+                                            echo "<p class='alert-danger text-center'>La taille de l'image doit être inférieur à 2Mo</p>";
                                     }
 
                                         if(in_array($file_ext,$extensions)=== false){
-                                            $errors = "<p class='alert-danger'>Extension $file_type non prise en charge</p>";
+                                            echo "<p class='alert-danger text-center py-3'>Extension \"pdf\" non prise en charge</p>";
                                         }
 
                                         if(empty($file_tmp)) {
-                                            $errors= "<p class='alert-danger'>Aucun fichier n'a été téléchargé</p>";
+                                            echo "<p class='alert-danger text-center py-3'>Aucun fichier n'a été téléchargé</p>";
                                         }
 
                                         if(empty($errors)){
                                         move_uploaded_file($file_tmp,"./uploaded/".$file_name);
                                         $table = array_filter($table_all);
                                         $_SESSION['table'] = $table;
-                                        echo '<p class="alert-success text-center py-3"> Données sauvegardées</p>';
+                                        echo "<p class='alert-success text-center py-3'> Données sauvegardées</p>";
                                         }
 
                                         else{

@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="React" id="reac" name="genre" name="react">
+                    <input class="form-check-input" type="checkbox" value="React" id="react" name="react">
                     <label class="form-check-label" for="flexCheckChecked">
                     React </label>
                 </div>

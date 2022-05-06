@@ -5,11 +5,13 @@
 
 <!DOCTYPE html>
 <html lang="fr">
-    
+
+    <!-- Intégration Head -->
     <?php include_once './includes/head.inc.html'; ?>   
 
     <body>
 
+        <!-- Intégration Header -->
         <?php include("./includes/header.inc.html"); ?> 
 
         <div class="container">
@@ -20,6 +22,7 @@
                     <a role="button" href="index.php" class="btn btn-outline-secondary w-100" >
                         Home</a>
 
+                    <!-- Boutton Données -->
                     <?php if (isset($table)) include_once './includes/ul.inc.php'; ?>
 
                 </nav>
@@ -27,21 +30,24 @@
                 <div class="col-md-9 mt-3">
                     <section>
 
-                            <?php 
-                                $buttonSubmit = '<div class="d-flex flex-row-reverse bd-highlight mt-4">
+                                <!-- Fonction Boutton Enregistrer -->
+                            <?php $buttonSubmit = '<div class="d-flex flex-row-reverse bd-highlight mt-4">
                                     <button name="enregistrer" type="submit" class="btn btn-primary">Enregistrer des données</button> </div>';
                                 
                                 if(isset($_GET['add'])) {
+                                    // Onglet Ajouter des données
                                     echo '<p class="h1 text-center">Ajouter des données</p>';
                                     include './includes/form.inc.html';
                                     echo $buttonSubmit . '</form>';
                                 } 
 
                                 elseif(isset($_GET['addmore'])) {
+                                    // Onglet ajouter plus de données
                                     include './includes/form2.inc.php';
                                 } 
 
                                 elseif(isset($_POST['enregistrer'])) {
+                                    // Liste des Données Enregistrer
                                     $prenom = $_POST['first_name'];
                                     $nom = $_POST['last_name'];
                                     $age = $_POST['age'];
@@ -91,61 +97,84 @@
                                         
                                     );
 
-                                    $errors= array();
-                        
-                                    if(isset($img)){
-                                        if($file_size > 2000000) {
-                                            echo "<p class='alert-danger text-center'>La taille de l'image doit être inférieur à 2Mo</p>";
+                                    $tabExtension = explode('.', $name);
+                                    $extension = strtolower(end($tabExtension));
+                                    //Tableau accepté
+                                    $extensions = ['png', 'jpg'];
+                                    $maxSize = 2000000;
+                                    
+                                    // Liste des Erreurs
+                                    if($extension == ['png', 'jpg']) {
+                                        echo"<p class='alert-danger text-center py-3'> Extension $type non pris en charge. </p>";
+                                        session_destroy();
                                     }
 
-                                        if(in_array($file_ext,$extensions)=== false){
-                                            echo "<p class='alert-danger text-center py-3'>Extension \"pdf\" non prise en charge</p>";
-                                        }
+                                    elseif($maxSize <= $file_size){
+                                        echo'<p class="alert-danger text-center py-3"> La taille de l\'image doit être infèrieure à 2Mo. </p>';
+                                        session_destroy();
+                                    }
+                                        
+                                    elseif($file_error == 2) {
+                                        echo'<p class="alert-danger text-center py-3"> Erreur:2 Le fichier téléchargé dépasse la taille Maximum</p>';
+                                        session_destroy();
+                                    }
 
-                                        if(empty($file_tmp)) {
-                                            echo "<p class='alert-danger text-center py-3'>Aucun fichier n'a été téléchargé</p>";
-                                        }
+                                    elseif($file_error == 3) {
+                                        echo'<p class="alert-danger text-center py-3"> Erreur:3 Le fichier téléchargé n\'a été que partiellement téléchargé. </p>';
+                                        session_destroy();
+                                    }
 
-                                        if(empty($errors)){
-                                        move_uploaded_file($file_tmp,"./uploaded/".$file_name);
-                                        $table = array_filter($table_all);
-                                        $_SESSION['table'] = $table;
-                                        echo "<p class='alert-success text-center py-3'> Données sauvegardées</p>";
-                                        }
+                                    elseif($file_error == 4) {
+                                        echo'<p class="alert-danger text-center py-3"> Erreur:4 Auncun fichier n\'a été téléchargé. </p>';
+                                        session_destroy();
+                                    }
 
-                                        else{
-                                            print_r($errors);
+                                    elseif($file_error == 6) {
+                                        echo'<p class="alert-danger text-center py-3"> Erreur:6 Absence d\'un dossier temporaire. </p>';
+                                        session_destroy();
+                                    }
 
-                                        } 
+                                    elseif($file_error == 7) {
+                                        echo'<p class="alert-danger text-center py-3"> Erreur:7 Impossible d\'écrire le fichier sur le disque. </p>';
+                                        session_destroy();
+                                    }
 
-                                    } else {
+                                    elseif($file_error == 8) {
+                                        echo'<p class="alert-danger text-center py-3"> Erreur:8 </p>';
+                                        session_destroy();
+                                    } 
+ 
+                                    else {
                                         $table = array_filter($table_all);
                                         $_SESSION['table'] = $table;
                                         echo '<p class="alert-success text-center py-3"> Données sauvegardées</p>';
                                     }
-                                }     
-                                 else {
-                                    if (isset($table)) {
+                                } 
 
+                                else {
+                                    if (isset($table)) {
+                                        // Onglet Données Enregistrer
                                         if(isset($_GET["debugging"])) {
+                                            // Onglet Debugging
                                             echo '<h2 class="text-center">Débogage</h2>';
-                                            echo "<h3 class='fs-5'>===> Lecture du tableau à l'aide de la fonction print_r() </h3>";
+                                            echo "<h3 class='fs-5'> ===> Lecture du tableau à l'aide de la fonction print_r() </h3>";
                                             print "<pre>";
                                             print_r($table);
                                             print "</pre>";
             
-                                        } elseif (isset($_GET['concatenation'])) {  
+                                        } elseif (isset($_GET['concatenation'])) {
+                                            // Onglet Concaténation 
                                             echo '<h2 class="text-center">Concaténation</h2><br>';
-            
-                                            echo "<h3 class='fs-5'>===> Construction d'une phrase avec le contenu du tableau :</h3>";
                                             
+                                            // Premier sous-onglet 
+                                            echo "<h3 class='fs-5'>===> Construction d'une phrase avec le contenu du tableau :</h3>";
                                             echo "<p>" ;
                                             echo ($table["civility"] == "Femme") ? "Mme " : "Mr " ;
                                             echo $table['first_name'] ." ". $table['last_name']; 
                                             echo " <br>J'ai " . $table["age"] . " ans et je mesure " . $table["size"] . "m.</p><br><br>";
                                             
+                                            // Second sous-onglet
                                             echo "<h3 class='fs-5' > ===> Construction d'une phrase après MAJ du tableau : </h3><br><br>";
-                                            
                                             $table['first_name'] = ucfirst ($table['first_name']);
                                             $table['last_name'] = strtoupper($table['last_name']);
                                             echo "<p>" ;
@@ -153,9 +182,8 @@
                                             echo $table["first_name"] ." ". $table["last_name"];
                                             echo " <br>J'ai " . $table["age"] . " ans et je mesure " . $table['size'] . "m.</p><br><br>";
                                             
-            
+                                            // Troisieme sous-onglet
                                             echo "<h3 class='fs-5' > ===> Affichage d'une virgule à la place du point pour la taille : </h3>";
-                                            
                                             $table['size'] = str_replace('.' , ',', $table['size']);
                                             $table['first_name'] = ucfirst ($table['first_name']);
                                             $table['last_name'] = strtoupper($table['last_name']);
@@ -163,9 +191,9 @@
                                             echo ($table["civility"] == "Femme") ? "Mme " : "Mr " ;                               
                                             echo $table["first_name"] ." ". $table["last_name"];
                                             echo " <br>J'ai " . $table["age"] . " ans et je mesure " . $table['size'] . "m.</p><br><br>";
-            
+                                            
                                         } elseif (isset($_GET['loop'])) {
-            
+                                            // Onglet Boucle
                                             echo "<h2 class='text-center'>Boucle</h2><br>";
                                             echo "<h3 class='fs-5'>===> Lecture du tableau à l'aide d'une boucle foreach</h3><br>";
                                             $table = $_SESSION['table'];
@@ -184,7 +212,7 @@
                                             }
                                             
                                         } elseif (isset($_GET['function'])){     
-                
+                                            // Onglet Fonction
                                             echo "<h2 class='text-center'>Fonction</h2><br>";
                                             echo "<h3 class='fs-5'>===> J'utilise ma fonction readTable()</h3><br>";
                                             function readTable(){
@@ -205,23 +233,26 @@
                                             }  
                                             readTable();
                                         
+                                                // Onglet Supprimer
                                         } elseif (isset($_GET['del'])) {
+                                            // Onglet Supprimer
                                             unset ($_SESSION['table']);
                                             if (empty($_SESSION['table'])) {
                                                 echo '<p class="alert-success text-center py-3"> Données suprimées</p>';
                                             }
                                         
                                         }else { 
+                                            // Boutton Ajouter des données et Ajouter plus de données
                                             echo '<a role="button" class=" btn btn-primary" href="index.php?add">Ajouter des données</a>'; 
                                             echo '<a role="button" class=" btn btn-secondary ms-2" href="index.php?addmore">Ajouter plus de données</a>'; 
                                         }  
                                     }else { 
+                                        // Boutton Ajouter des données et Ajouter plus de données
                                         echo '<a role="button" class=" btn btn-primary" href="index.php?add">Ajouter des données</a> ';
                                         echo '<a role="button" class=" btn btn-secondary ms-2" href="index.php?addmore">Ajouter plus de données</a>'; 
                                     } 
-                            }   
+                                }  
                             ?>
-
                         </section>
                     </div>
             </div>   

@@ -3,13 +3,16 @@
     <div class="container" >
         <div class="row">
 
+            <!-- Première liste -->
             <div name="Prenom" class="card col-md-7 mx-auto my-1">
                 <?php include './includes/form.inc.html';?>
             </div>
 
+            <!-- Deuxième liste -->
             <div name="Connaissances" class="card col-md-4 mx-auto my-1">
                 <h6>Connaissances</h6>
 
+                <!-- CheckBox -->
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="HTML5" id="html" name="html">
                     <label class="form-check-label" for="flexCheckDefault">
@@ -58,18 +61,22 @@
                     React </label>
                 </div>
 
+                <!-- Bloc Couleur -->
                 <label for="ColorInput" class="form-label mt-3">Couleur préférée</label>
                 <input type="color" id="color" name="color">
 
+                <!-- Bloc Date de Naissance -->
                 <label for="date" class="form-label mt-3">Date de naissance</label>
                 <input type="date" id="date" placeholder="jj/mm/aaaa" name="date">
             </div>
 
+            <!-- Images -->
             <div name="JoindreUneImage" class="card col-md-11 mx-auto my-1">
                 <h6>Joindre une image (jpg ou png)</h6>
                 <input class="form-control" type="file" id="img" accept=".jpg, .png," name="img">
             </div> 
 
+            <!-- Enregistrement -->
             <div class="d-flex flex-row-reverse bd-highlight mt-4">
                 <button name="enregistrer" type="submit" class="btn btn-primary">Enregistrer des données</button>
             </div>

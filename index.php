@@ -105,7 +105,7 @@
                                 $maxSize = 2000000;
                                 
                                 // Liste des Erreurs
-                                if(in_array($file_ext,$extensions)=== false) {
+                                if($extensions === false) {
                                     echo"<p class='alert-danger text-center py-3'> Extension $type non pris en charge. </p>";
                                     session_destroy();
                                 }
@@ -116,32 +116,32 @@
                                 }
                                     
                                 elseif($file_error == 2) {
-                                    echo'<p class="alert-danger text-center py-3"> Erreur:2 Le fichier téléchargé dépasse la taille Maximum</p>';
+                                    echo'<p class="alert-danger text-center py-3"> Erreur 2 : Le fichier téléchargé dépasse la taille Maximum</p>';
                                     session_destroy();
                                 }
 
                                 elseif($file_error == 3) {
-                                    echo'<p class="alert-danger text-center py-3"> Erreur:3 Le fichier téléchargé n\'a été que partiellement téléchargé. </p>';
+                                    echo'<p class="alert-danger text-center py-3"> Erreur 3 : Le fichier téléchargé n\'a été que partiellement téléchargé. </p>';
                                     session_destroy();
                                 }
 
                                 elseif($file_error == 4) {
-                                    echo'<p class="alert-danger text-center py-3"> Erreur:4 Auncun fichier n\'a été téléchargé. </p>';
+                                    echo'<p class="alert-danger text-center py-3"> Erreur 4 : Auncun fichier n\'a été téléchargé. </p>';
                                     session_destroy();
                                 }
 
                                 elseif($file_error == 6) {
-                                    echo'<p class="alert-danger text-center py-3"> Erreur:6 Absence d\'un dossier temporaire. </p>';
+                                    echo'<p class="alert-danger text-center py-3"> Erreur 6 : Absence d\'un dossier temporaire. </p>';
                                     session_destroy();
                                 }
 
                                 elseif($file_error == 7) {
-                                    echo'<p class="alert-danger text-center py-3"> Erreur:7 Impossible d\'écrire le fichier sur le disque. </p>';
+                                    echo'<p class="alert-danger text-center py-3"> Erreur 7 : Impossible d\'écrire le fichier sur le disque. </p>';
                                     session_destroy();
                                 }
 
                                 elseif($file_error == 8) {
-                                    echo'<p class="alert-danger text-center py-3"> Erreur:8 </p>';
+                                    echo'<p class="alert-danger text-center py-3"> Erreur 8 : </p>';
                                     session_destroy();
                                 } 
 

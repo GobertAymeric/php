@@ -105,7 +105,7 @@
                                 $maxSize = 2000000;
                                 
                                 // Liste des Erreurs
-                                if($extension == ['png', 'jpg']) {
+                                if(in_array($file_ext,$extensions)=== false) {
                                     echo"<p class='alert-danger text-center py-3'> Extension $type non pris en charge. </p>";
                                     session_destroy();
                                 }

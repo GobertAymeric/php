@@ -73,7 +73,7 @@
             <!-- Images -->
             <div name="JoindreUneImage" class="card col-md-11 mx-auto my-1">
                 <h6>Joindre une image (jpg ou png)</h6>
-                <input class="form-control" type="file" id="img" accept=".jpg, .png," name="img">
+                <input class="form-control" type="file" id="img" accept=".jpg, .png," name="img" required>
             </div> 
 
             <!-- Enregistrement -->
